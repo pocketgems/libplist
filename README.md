@@ -1,55 +1,38 @@
-# libplist
+# libplist-win32
+[![Build status](https://ci.appveyor.com/api/projects/status/mb2do9aw242kax16/branch/msvc-master?svg=true)](https://ci.appveyor.com/project/qmfrederik/libplist/branch/msvc-master)
+[![Build Status](https://travis-ci.org/libimobiledevice-win32/libplist.svg?branch=msvc-master)](https://travis-ci.org/libimobiledevice-win32/libplist)
 
-## About
+Provides a native Windows build (using the Visual C++ compiler) of libplist, as well as continuous integration (CI) builds of libplist for Ubuntu, CentOS and RedHat Linux and macOS.
 
-A small portable C library to handle Apple Property List files in binary or XML.
+## Where to report issues
+For general questions about libplist, see http://github.com/libimobiledevice/libplist. For questions specific to Visual C++, feel free to use the GitHub issue tracker
 
-## Requirements
+## How to get the latest binaries
+The binaries for libplist are available as:
+* [NuGet CoApp packages](https://www.nuget.org/packages/libplist/) for Windows,
+* [apt-get packages](https://launchpad.net/~quamotion/+archive/ubuntu/ppa) for Ubuntu,
+* [yum packages](https://build.opensuse.org/package/show/home:qmfrederik/libplist) for CentOS and RedHat.
 
-Software:
-* make
-* autoheader
-* automake
-* autoconf
-* libtool
-* pkg-config
-* gcc or clang
+For Ubuntu Linux, run the following commands as root:
 
-Optional:
-* cython (Python bindings)
-* doxygen (Documentation)
-
-## Installation
-
-To compile run:
-```bash
-./autogen.sh
-make
-sudo make install
+```
+sudo add-apt-repository ppa:quamotion/ppa
+sudo apt-get update
+apt-get install libplist
 ```
 
-If you require a custom prefix or other option being passed to `./configure`
-you can pass them directly to `./autogen.sh` like this:
-```bash
-./autogen.sh --prefix=/opt/local --without-cython
-make
-sudo make install
+For RedHat Linux, run the following commands as root:
+
+```
+cd /etc/yum.repos.d/
+wget http://download.opensuse.org/repositories/home:qmfrederik/RHEL_7/home:qmfrederik.repo
+yum install libplist
 ```
 
-## Who/What/Where?
+For CentOS Linux, run the following commands as root:
 
-* Home: https://www.libimobiledevice.org/
-* Code: `git clone https://git.libimobiledevice.org/libplist.git`
-* Code (Mirror): `git clone https://github.com/libimobiledevice/libplist.git`
-* Tickets: https://github.com/libimobiledevice/libplist/issues
-* Mailing List: https://lists.libimobiledevice.org/mailman/listinfo/libimobiledevice-devel
-* IRC: irc://irc.freenode.net#libimobiledevice
-* Twitter: https://twitter.com/libimobiledev
-
-## Credits
-
-Apple, iPhone, iPod, and iPod Touch are trademarks of Apple Inc.
-libimobiledevice is an independent software library and has not been
-authorized, sponsored, or otherwise approved by Apple Inc.
-
-README Updated on: 2019-05-16
+```
+cd /etc/yum.repos.d/
+wget http://download.opensuse.org/repositories/home:qmfrederik/CentOS_7/home:qmfrederik.repo
+yum install libplist
+```
