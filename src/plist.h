@@ -38,7 +38,7 @@
 #endif
 
 #ifdef WIN32
-  #define PLIST_API __declspec( dllexport )
+  #define PLIST_API
 #else
   #ifdef HAVE_FVISIBILITY
     #define PLIST_API __attribute__((visibility("default")))
