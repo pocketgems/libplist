@@ -299,7 +299,7 @@ extern "C"
      *
      * @param node The node to be removed from its #PLIST_ARRAY parent.
      */
-    void plist_array_item_remove(plist_t node);
+    PLIST_API_MSC void plist_array_item_remove(plist_t node);
 
     /**
      * Create an iterator of a #PLIST_ARRAY node.
@@ -382,7 +382,7 @@ extern "C"
      * @param node the item
      * @return the key node of the given item, or NULL.
      */
-    plist_t plist_dict_item_get_key(plist_t node);
+    PLIST_API_MSC plist_t plist_dict_item_get_key(plist_t node);
 
     /**
      * Set item identified by key in a #PLIST_DICT node.
