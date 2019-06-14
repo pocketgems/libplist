@@ -202,7 +202,7 @@ void plist_free_data(plist_data_t data)
             free(data->buff);
             break;
         case PLIST_ARRAY:
-            ptr_array_free(data->hashtable);
+            ptr_array_free((ptrarray_t*)data->hashtable);
             break;
         case PLIST_DICT:
             hash_table_destroy((hashtable_t*)data->hashtable);
@@ -359,7 +359,7 @@ static void plist_copy_node(node_t *node, void *parent_node_ptr)
                 plist_t current = NULL;
                 for (current = (plist_t)node_first_child(node);
                      pa && current;
-                     current = (plist_t)node_next_sibling(current))
+                     current = (plist_t)node_next_sibling((node_t*)current))
                 {
                     ptr_array_add(pa, current);
                 }
@@ -422,7 +422,7 @@ PLIST_API plist_t plist_array_get_item(plist_t node, uint32_t n)
     plist_t ret = NULL;
     if (node && PLIST_ARRAY == plist_get_node_type(node) && n < INT_MAX)
     {
-        ptrarray_t *pa = ((plist_data_t)((node_t*)node)->data)->hashtable;
+        ptrarray_t *pa = (ptrarray_t*)((plist_data_t)((node_t*)node)->data)->hashtable;
         if (pa) {
             ret = (plist_t)ptr_array_index(pa, n);
         } else {
@@ -444,7 +444,7 @@ PLIST_API uint32_t plist_array_get_item_index(plist_t node)
 
 static void _plist_array_post_insert(plist_t node, plist_t item, long n)
 {
-    ptrarray_t *pa = ((plist_data_t)((node_t*)node)->data)->hashtable;
+    ptrarray_t *pa = (ptrarray_t*)((plist_data_t)((node_t*)node)->data)->hashtable;
     if (pa) {
         /* store pointer to item in array */
         ptr_array_insert(pa, item, n);
@@ -453,9 +453,9 @@ static void _plist_array_post_insert(plist_t node, plist_t item, long n)
             /* make new lookup array */
             pa = ptr_array_new(128);
             plist_t current = NULL;
-            for (current = (plist_t)node_first_child(node);
+            for (current = (plist_t)node_first_child((node_t*)node);
                  pa && current;
-                 current = (plist_t)node_next_sibling(current))
+                 current = (plist_t)node_next_sibling((node_t*)current))
             {
                 ptr_array_add(pa, current);
             }
@@ -477,7 +477,7 @@ PLIST_API void plist_array_set_item(plist_t node, plist_t item, uint32_t n)
                 return;
             } else {
                 node_insert((node_t*)node, idx, (node_t*)item);
-                ptrarray_t* pa = ((plist_data_t)((node_t*)node)->data)->hashtable;
+                ptrarray_t* pa = (ptrarray_t*)((plist_data_t)((node_t*)node)->data)->hashtable;
                 if (pa) {
                     ptr_array_set(pa, (node_t*)item, idx);
                 }
@@ -515,7 +515,7 @@ PLIST_API void plist_array_remove_item(plist_t node, uint32_t n)
         plist_t old_item = plist_array_get_item(node, n);
         if (old_item)
         {
-            ptrarray_t* pa = ((plist_data_t)((node_t*)node)->data)->hashtable;
+            ptrarray_t* pa = (ptrarray_t*)((plist_data_t)((node_t*)node)->data)->hashtable;
             if (pa) {
                 ptr_array_remove(pa, n);
             }
@@ -530,9 +530,9 @@ PLIST_API void plist_array_item_remove(plist_t node)
     plist_t father = plist_get_parent(node);
     if (PLIST_ARRAY == plist_get_node_type(father))
     {
-        int n = node_child_position(father, node);
+        int n = node_child_position((node_t*)father, (node_t*)node);
         if (n < 0) return;
-        ptrarray_t* pa = ((plist_data_t)((node_t*)father)->data)->hashtable;
+        ptrarray_t* pa = (ptrarray_t*)((plist_data_t)((node_t*)father)->data)->hashtable;
         if (pa) {
             ptr_array_remove(pa, n);
         }
@@ -634,7 +634,7 @@ PLIST_API plist_t plist_dict_item_get_key(plist_t node)
     plist_t father = plist_get_parent(node);
     if (PLIST_DICT == plist_get_node_type(father))
     {
-        ret = (plist_t)node_prev_sibling(node);
+        ret = (plist_t)node_prev_sibling((node_t*)node);
     }
     return ret;
 }
