@@ -6,6 +6,8 @@ libplist.so.3 libplist3 #MINVER#
  plist_array_get_item_index@Base 1.11
  plist_array_get_size@Base 1.11
  plist_array_insert_item@Base 1.11
+ plist_array_new_iter@Base 2.0.2-1.2.77-0xenial
+ plist_array_next_item@Base 2.0.2-1.2.77-0xenial
  plist_array_remove_item@Base 1.11
  plist_array_set_item@Base 1.11
  plist_compare_node_value@Base 1.11
