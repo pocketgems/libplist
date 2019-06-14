@@ -15,14 +15,10 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - script: |
-      git clone https://github.com/microsoft/vcpkg
-      vcpkg\bootstrap-vcpkg.bat
-    displayName: Install vcpkg
-  - script: |
-      vcpkg\vcpkg version
-      vcpkg\vcpkg integrate install
-      set VCPKG_BUILD_TYPE=release
-      vcpkg\vcpkg install libiconv:%BUILD_ARCH%-windows
+      %VCPKG_INSTALLATION_ROOT%\vcpkg version
+      %VCPKG_INSTALLATION_ROOT%\vcpkg integrate install
+      echo.set(VCPKG_BUILD_TYPE %CONFIGURATION%)>> %VCPKG_INSTALLATION_ROOT%\triplets\%BUILD_ARCH%-windows.cmake
+      %VCPKG_INSTALLATION_ROOT%\vcpkg install libiconv:%BUILD_ARCH%-windows
     displayName: Install libiconv
   - task: MSBuild@1
     inputs:
