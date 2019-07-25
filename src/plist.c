@@ -493,7 +493,6 @@ PLIST_API void plist_array_append_item(plist_t node, plist_t item)
     {
         node_attach((node_t*)node, (node_t*)item);
         _plist_array_post_insert(node, item, -1);
-        node_attach((node_t*)node, (node_t*)item);
     }
     return;
 }
