@@ -4,9 +4,7 @@ project(libplist)
 ### libplist ###
 
 add_library(libplist
-#    libcnary/list.c
     libcnary/node_list.c
-    libcnary/cnary.c
     libcnary/node.c
     src/bplist.c
     src/time64.c
